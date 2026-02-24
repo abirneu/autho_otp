@@ -51,3 +51,13 @@ Ensure you have Python installed.
    ```
 4. Set `DEBUG=False` and `ALLOWED_HOSTS` to your domain.
 5. Use `gunicorn` and `Nginx` for serving.
+## Render Deployment
+1. **Build Command**: `pip install -r requirements.txt`
+2. **Start Command**: `gunicorn auto_otp.wsgi:application --bind 0.0.0.0:$PORT`
+3. **Environment Variables**:
+   - `PYTHON_VERSION`: `3.14.3` (or your preferred version)
+   - `SECRET_KEY`: `your-secret-key`
+   - `DEBUG`: `False`
+   - `ALLOWED_HOSTS`: `your-app-name.onrender.com`
+   - `EMAIL_HOST_USER`: `your-email@gmail.com`
+   - `EMAIL_HOST_PASSWORD`: `your-app-password`
