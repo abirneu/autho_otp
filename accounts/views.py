@@ -49,13 +49,14 @@ def logout_view(request):
     return redirect('home')
 
 def forgot_password(request):
+    form = ForgotPasswordForm()
     if request.method == 'POST':
-        form = ForgotPasswordForm(request.POST)
-        if form.is_valid():
-            email = form.cleaned_data['email']
-            otp_code = ''.join(random.choices(string.digits, k=6))
-            
-            try:
+        try:
+            form = ForgotPasswordForm(request.POST)
+            if form.is_valid():
+                email = form.cleaned_data['email']
+                otp_code = ''.join(random.choices(string.digits, k=6))
+                
                 # Delete old OTPs for this email
                 OTP.objects.filter(user_email=email).delete()
                 
@@ -73,11 +74,10 @@ def forgot_password(request):
                 request.session['reset_email'] = email
                 messages.success(request, f"OTP sent to {email}")
                 return redirect('verify_otp')
-            except Exception as e:
-                print(f"DEBUG: Error in forgot_password: {str(e)}")
-                messages.error(request, f"An error occurred: {str(e)}")
-    else:
-        form = ForgotPasswordForm()
+        except Exception as e:
+            print(f"DEBUG: Error in forgot_password: {str(e)}")
+            messages.error(request, f"System Error: {str(e)}")
+    
     return render(request, 'accounts/forgot_password.html', {'form': form})
 
 def verify_otp(request):
