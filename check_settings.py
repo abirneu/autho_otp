@@ -2,7 +2,7 @@ import os
 import django
 from django.conf import settings
 
-os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'auto_otp.settings')
+os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'secure_auth_otp.settings')
 django.setup()
 
 print(f"DEBUG: {settings.DEBUG}")

@@ -52,7 +52,7 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-ROOT_URLCONF = 'auto_otp.urls'
+ROOT_URLCONF = 'secure_auth_otp.urls'
 
 TEMPLATES = [
     {
@@ -70,7 +70,7 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'auto_otp.wsgi.application'
+WSGI_APPLICATION = 'secure_auth_otp.wsgi.application'
 
 
 # Database

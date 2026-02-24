@@ -5,7 +5,7 @@ import sys
 
 def main():
     """Run administrative tasks."""
-    os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'auto_otp.settings')
+    os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'secure_auth_otp.settings')
     try:
         from django.core.management import execute_from_command_line
     except ImportError as exc:

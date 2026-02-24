@@ -53,7 +53,7 @@ Ensure you have Python installed.
 5. Use `gunicorn` and `Nginx` for serving.
 ## Render Deployment
 1. **Build Command**: `pip install -r requirements.txt`
-2. **Start Command**: `gunicorn auto_otp.wsgi:application --bind 0.0.0.0:$PORT`
+2. **Start Command**: `gunicorn secure_auth_otp.wsgi:application --bind 0.0.0.0:$PORT`
 3. **Environment Variables**:
    - `PYTHON_VERSION`: `3.14.3` (or your preferred version)
    - `SECRET_KEY`: `your-secret-key`
