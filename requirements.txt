@@ -2,3 +2,5 @@ django>=4.2
 django-environ
 python-dotenv
 mysqlclient
+gunicorn
+whitenoise
