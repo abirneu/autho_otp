@@ -1,0 +1,21 @@
+{% extends 'accounts/base.html' %}
+
+{% block title %}Home - SecureAuth{% endblock %}
+
+{% block content %}
+<div class="text-center">
+    <h2 class="text-3xl font-extrabold text-gray-900 mb-4">Welcome to SecureAuth</h2>
+    <p class="text-gray-600 mb-8">A production-ready OTP authentication system with Django.</p>
+
+    <div class="flex flex-col space-y-4">
+        <a href="{% url 'register' %}"
+            class="w-full bg-blue-600 text-white font-bold py-3 px-4 rounded-lg hover:bg-blue-700 transition duration-300">
+            Create Account
+        </a>
+        <a href="{% url 'login' %}"
+            class="w-full bg-white text-blue-600 border border-blue-600 font-bold py-3 px-4 rounded-lg hover:bg-blue-50 transition duration-300">
+            Login
+        </a>
+    </div>
+</div>
+{% endblock %}

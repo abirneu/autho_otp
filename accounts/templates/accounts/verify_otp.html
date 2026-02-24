@@ -1,0 +1,39 @@
+{% extends 'accounts/base.html' %}
+
+{% block title %}Verify OTP - SecureAuth{% endblock %}
+
+{% block content %}
+<div class="text-center">
+    <h2 class="text-3xl font-bold text-gray-900 mb-2">Verify OTP</h2>
+    <p class="text-gray-600 mb-6">We've sent a 6-digit code to <span class="font-semibold text-gray-800">{{ email
+            }}</span></p>
+</div>
+
+<form method="POST" class="space-y-6">
+    {% csrf_token %}
+    <div>
+        {{ form.otp }}
+        {% if form.otp.errors %}
+        <p class="text-red-500 text-xs mt-1 text-center">{{ form.otp.errors.0 }}</p>
+        {% endif %}
+    </div>
+
+    <button type="submit"
+        class="w-full bg-blue-600 text-white font-bold py-3 px-4 rounded-lg hover:bg-blue-700 transition duration-300">
+        Verify & Proceed
+    </button>
+</form>
+
+<div class="mt-8 text-center">
+    <p class="text-sm text-gray-600 mb-2">Didn't receive the code?</p>
+    <a href="{% url 'resend_otp' %}" class="text-blue-600 font-semibold hover:underline">
+        Resend OTP
+    </a>
+</div>
+
+<div class="mt-6 text-center border-t pt-4">
+    <a href="{% url 'forgot_password' %}" class="text-xs text-gray-500 hover:text-blue-600">
+        Try another email address
+    </a>
+</div>
+{% endblock %}

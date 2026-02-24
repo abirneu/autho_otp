@@ -1,0 +1,44 @@
+{% extends 'accounts/base.html' %}
+
+{% block title %}Dashboard - SecureAuth{% endblock %}
+
+{% block content %}
+<div class="text-center">
+    <div class="w-20 h-20 bg-blue-100 text-blue-600 rounded-full flex items-center justify-center mx-auto mb-4">
+        <svg class="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path>
+        </svg>
+    </div>
+    <h2 class="text-3xl font-bold text-gray-900 mb-2">My Dashboard</h2>
+    <p class="text-gray-600 mb-8">Welcome back, {{ user.first_name|default:user.email }}!</p>
+</div>
+
+<div class="space-y-4">
+    <div class="p-4 bg-gray-50 rounded-lg border">
+        <h3 class="text-xs font-semibold text-gray-500 uppercase tracking-wider mb-1">Email Address</h3>
+        <p class="text-gray-900 font-medium">{{ user.email }}</p>
+    </div>
+    <div class="p-4 bg-gray-50 rounded-lg border">
+        <h3 class="text-xs font-semibold text-gray-500 uppercase tracking-wider mb-1">Full Name</h3>
+        <p class="text-gray-900 font-medium">{{ user.first_name }} {{ user.last_name }}</p>
+    </div>
+    <div class="p-4 bg-gray-50 rounded-lg border">
+        <h3 class="text-xs font-semibold text-gray-500 uppercase tracking-wider mb-1">Account Status</h3>
+        <span
+            class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800">
+            Active
+        </span>
+    </div>
+</div>
+
+<div class="mt-8 border-t pt-6">
+    <form action="{% url 'logout' %}" method="POST">
+        {% csrf_token %}
+        <button type="submit"
+            class="w-full bg-red-50 text-red-600 border border-red-100 font-bold py-3 px-4 rounded-lg hover:bg-red-100 transition duration-300">
+            Log Out
+        </button>
+    </form>
+</div>
+{% endblock %}
