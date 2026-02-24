@@ -4,7 +4,7 @@ from django.core.mail import send_mail
 from django.conf import settings
 
 # Setup Django environment
-os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'secure_auth_otp.settings')
+os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'auto_otp.settings')
 django.setup()
 
 def test_connection():

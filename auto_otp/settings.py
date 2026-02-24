@@ -18,6 +18,15 @@ SECRET_KEY = env('SECRET_KEY', default='django-insecure-default-key-for-dev')
 DEBUG = env('DEBUG')
 ALLOWED_HOSTS = env.list('ALLOWED_HOSTS', default=['*'])
 
+# Render/Production Settings
+SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+CSRF_TRUSTED_ORIGINS = [
+    'https://*.onrender.com',
+    'http://localhost:8000',
+    'http://127.0.0.1:8000',
+]
+
+
 
 # Application definition
 INSTALLED_APPS = [
@@ -43,7 +52,7 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-ROOT_URLCONF = 'secure_auth_otp.urls'
+ROOT_URLCONF = 'auto_otp.urls'
 
 TEMPLATES = [
     {
@@ -61,12 +70,16 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'secure_auth_otp.wsgi.application'
+WSGI_APPLICATION = 'auto_otp.wsgi.application'
 
 
 # Database
-# Production-ready for MySQL, defaults to SQLite
-if env('DB_NAME', default=None):
+# Support DATABASE_URL for Render/Production, otherwise use MySQL settings or fallback to SQLite
+if env('DATABASE_URL', default=None):
+    DATABASES = {
+        'default': env.db(),
+    }
+elif env('DB_NAME', default=None):
     DATABASES = {
         'default': {
             'ENGINE': 'django.db.backends.mysql',

@@ -55,28 +55,27 @@ def forgot_password(request):
             email = form.cleaned_data['email']
             otp_code = ''.join(random.choices(string.digits, k=6))
             
-            # Delete old OTPs for this email
-            OTP.objects.filter(user_email=email).delete()
-            
-            # Create new OTP
-            OTP.objects.create(user_email=email, otp_code=otp_code)
-            
-            # Send Email
-            subject = "Your Password Reset OTP"
-            message = f"Your OTP for password reset is: {otp_code}. Valid for 5 minutes."
             try:
-                from_email = 'abir60006@gmail.com'  # Hardcoded verified sender
-                to_email = [email.strip()]
+                # Delete old OTPs for this email
+                OTP.objects.filter(user_email=email).delete()
                 
-                print(f"DEBUG: Attempting send from '{from_email}' to '{to_email}'")
+                # Create new OTP
+                OTP.objects.create(user_email=email, otp_code=otp_code)
+                
+                # Send Email
+                subject = "Your Password Reset OTP"
+                message = f"Your OTP for password reset is: {otp_code}. Valid for 5 minutes."
+                
+                from_email = settings.DEFAULT_FROM_EMAIL
+                to_email = [email.strip()]
                 
                 send_mail(subject, message, from_email, to_email)
                 request.session['reset_email'] = email
                 messages.success(request, f"OTP sent to {email}")
                 return redirect('verify_otp')
             except Exception as e:
-                print(f"DEBUG: Email error: {str(e)}")
-                messages.error(request, f"Error sending email: {str(e)}")
+                print(f"DEBUG: Error in forgot_password: {str(e)}")
+                messages.error(request, f"An error occurred: {str(e)}")
     else:
         form = ForgotPasswordForm()
     return render(request, 'accounts/forgot_password.html', {'form': form})
@@ -123,8 +122,11 @@ def resend_otp(request):
     OTP.objects.filter(user_email=email).delete()
     OTP.objects.create(user_email=email, otp_code=otp_code)
     
-    send_mail("New OTP", f"Your new OTP is: {otp_code}", settings.DEFAULT_FROM_EMAIL, [email])
-    messages.success(request, "A new OTP has been sent to your email.")
+    try:
+        send_mail("New OTP", f"Your new OTP is: {otp_code}", settings.DEFAULT_FROM_EMAIL, [email])
+        messages.success(request, "A new OTP has been sent to your email.")
+    except Exception as e:
+        messages.error(request, f"Error sending email: {str(e)}")
     return redirect('verify_otp')
 
 def reset_password(request):

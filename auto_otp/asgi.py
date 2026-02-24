@@ -1,4 +1,4 @@
 import os
 from django.core.asgi import get_asgi_application
-os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'secure_auth_otp.settings')
+os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'auto_otp.settings')
 application = get_asgi_application()

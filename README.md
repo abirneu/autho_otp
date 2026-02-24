@@ -1,4 +1,4 @@
-# SecureAuth OTP System
+# Auto OTP System
 
 A complete Django project implementing a Forgot Password system with OTP verification via SMTP.
 
